@@ -1,0 +1,385 @@
+{
+  "acc_test_drive": {
+    "collisions": 0,
+    "min_gap_m": 7.086347169249393,
+    "max_decel": 3.4996799770787694,
+    "rms_jerk": 0.7712425996468848,
+    "min_speed": 19.394299903836412,
+    "aeb_used": false
+  },
+  "frequency": {
+    "theta_s": 0.075,
+    "tau_s": 0.3,
+    "peak_gain": {
+      "ACC  h=0.6 s": 1.092,
+      "ACC  h=1.6 s": 1.0,
+      "CACC h=0.6 s": 1.0
+    },
+    "h_min_acc_s": 1.071,
+    "h_min_cacc_s_at_theta": 0.492,
+    "h_min_vs_tau": {
+      "tau": [
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8
+      ],
+      "acc": [
+        1.069,
+        1.069,
+        1.069,
+        1.07,
+        1.071,
+        1.07,
+        1.07,
+        1.071,
+        1.08,
+        1.127,
+        1.203,
+        1.303,
+        1.421,
+        1.553,
+        1.698
+      ],
+      "cacc": [
+        0.473,
+        0.478,
+        0.483,
+        0.487,
+        0.493,
+        0.5,
+        0.507,
+        0.514,
+        0.523,
+        0.532,
+        0.542,
+        0.552,
+        0.564,
+        0.575,
+        0.588
+      ]
+    }
+  },
+  "speed_dip": {
+    "Human (IDM)": {
+      "peak_acc_leader": 2.99,
+      "peak_acc_last": 5.68,
+      "amplification_last_over_leader": 1.9,
+      "max_consecutive_ratio": 1.131,
+      "string_stable": false,
+      "min_gap_m": 28.69,
+      "min_ttc_s": 5.25,
+      "max_decel": 5.68,
+      "rms_jerk_mean": 0.672,
+      "collided_vehicles": [],
+      "initial_gap_m": 48.2,
+      "lane_capacity_veh_per_h": 1706,
+      "aeb_activations": 0
+    },
+    "ACC  h=0.6 s": {
+      "peak_acc_leader": 2.99,
+      "peak_acc_last": 3.45,
+      "amplification_last_over_leader": 1.15,
+      "max_consecutive_ratio": 1.064,
+      "string_stable": false,
+      "min_gap_m": 4.29,
+      "min_ttc_s": 2.66,
+      "max_decel": 3.45,
+      "rms_jerk_mean": 0.403,
+      "collided_vehicles": [],
+      "initial_gap_m": 18.0,
+      "lane_capacity_veh_per_h": 3999,
+      "aeb_activations": 0
+    },
+    "ACC  h=1.6 s": {
+      "peak_acc_leader": 2.99,
+      "peak_acc_last": 1.0,
+      "amplification_last_over_leader": 0.34,
+      "max_consecutive_ratio": 0.901,
+      "string_stable": true,
+      "min_gap_m": 28.27,
+      "min_ttc_s": 10.14,
+      "max_decel": 2.36,
+      "rms_jerk_mean": 0.191,
+      "collided_vehicles": [],
+      "initial_gap_m": 43.0,
+      "lane_capacity_veh_per_h": 1894,
+      "aeb_activations": 0
+    },
+    "CACC h=0.6 s": {
+      "peak_acc_leader": 2.99,
+      "peak_acc_last": 2.33,
+      "amplification_last_over_leader": 0.78,
+      "max_consecutive_ratio": 0.993,
+      "string_stable": true,
+      "min_gap_m": 11.93,
+      "min_ttc_s": 8.69,
+      "max_decel": 2.69,
+      "rms_jerk_mean": 0.341,
+      "collided_vehicles": [],
+      "initial_gap_m": 18.0,
+      "lane_capacity_veh_per_h": 3999,
+      "aeb_activations": 0
+    }
+  },
+  "emergency_stop": {
+    "Human (IDM)": {
+      "peak_acc_leader": 6.0,
+      "peak_acc_last": 6.0,
+      "amplification_last_over_leader": 1.0,
+      "max_consecutive_ratio": 1.0,
+      "string_stable": true,
+      "min_gap_m": 1.65,
+      "min_ttc_s": 1.31,
+      "max_decel": 6.0,
+      "rms_jerk_mean": 7.142,
+      "collided_vehicles": [],
+      "initial_gap_m": 48.2,
+      "lane_capacity_veh_per_h": 1706,
+      "aeb_activations": 0
+    },
+    "ACC  h=0.6 s": {
+      "peak_acc_leader": 6.0,
+      "peak_acc_last": 5.96,
+      "amplification_last_over_leader": 0.99,
+      "max_consecutive_ratio": 1.0,
+      "string_stable": true,
+      "min_gap_m": 0.0,
+      "min_ttc_s": 0.0,
+      "max_decel": 6.0,
+      "rms_jerk_mean": 11.71,
+      "collided_vehicles": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8"
+      ],
+      "initial_gap_m": 18.0,
+      "lane_capacity_veh_per_h": 3999,
+      "aeb_activations": 4424
+    },
+    "ACC  h=1.6 s": {
+      "peak_acc_leader": 6.0,
+      "peak_acc_last": 2.41,
+      "amplification_last_over_leader": 0.4,
+      "max_consecutive_ratio": 0.925,
+      "string_stable": true,
+      "min_gap_m": 3.02,
+      "min_ttc_s": 2.48,
+      "max_decel": 5.55,
+      "rms_jerk_mean": 0.405,
+      "collided_vehicles": [],
+      "initial_gap_m": 43.0,
+      "lane_capacity_veh_per_h": 1894,
+      "aeb_activations": 0
+    },
+    "CACC h=0.6 s": {
+      "peak_acc_leader": 6.0,
+      "peak_acc_last": 3.09,
+      "amplification_last_over_leader": 0.52,
+      "max_consecutive_ratio": 0.967,
+      "string_stable": true,
+      "min_gap_m": 2.95,
+      "min_ttc_s": 2.37,
+      "max_decel": 5.38,
+      "rms_jerk_mean": 0.932,
+      "collided_vehicles": [],
+      "initial_gap_m": 18.0,
+      "lane_capacity_veh_per_h": 3999,
+      "aeb_activations": 0
+    }
+  },
+  "stop_and_go": {
+    "Human (IDM)": {
+      "peak_acc_leader": 2.2,
+      "peak_acc_last": 6.0,
+      "amplification_last_over_leader": 2.73,
+      "max_consecutive_ratio": 1.642,
+      "string_stable": false,
+      "min_gap_m": 1.68,
+      "min_ttc_s": 1.14,
+      "max_decel": 6.0,
+      "rms_jerk_mean": 5.444,
+      "collided_vehicles": [],
+      "initial_gap_m": 25.0,
+      "lane_capacity_veh_per_h": 1828,
+      "aeb_activations": 0
+    },
+    "ACC  h=0.6 s": {
+      "peak_acc_leader": 2.2,
+      "peak_acc_last": 5.99,
+      "amplification_last_over_leader": 2.73,
+      "max_consecutive_ratio": 1.471,
+      "string_stable": false,
+      "min_gap_m": 0.0,
+      "min_ttc_s": 0.0,
+      "max_decel": 5.99,
+      "rms_jerk_mean": 2.879,
+      "collided_vehicles": [
+        "F6",
+        "F8"
+      ],
+      "initial_gap_m": 12.0,
+      "lane_capacity_veh_per_h": 3272,
+      "aeb_activations": 2751
+    },
+    "ACC  h=1.6 s": {
+      "peak_acc_leader": 2.2,
+      "peak_acc_last": 1.02,
+      "amplification_last_over_leader": 0.47,
+      "max_consecutive_ratio": 0.936,
+      "string_stable": true,
+      "min_gap_m": 3.57,
+      "min_ttc_s": 3.34,
+      "max_decel": 1.7,
+      "rms_jerk_mean": 0.196,
+      "collided_vehicles": [],
+      "initial_gap_m": 27.0,
+      "lane_capacity_veh_per_h": 1714,
+      "aeb_activations": 0
+    },
+    "CACC h=0.6 s": {
+      "peak_acc_leader": 2.2,
+      "peak_acc_last": 1.86,
+      "amplification_last_over_leader": 0.85,
+      "max_consecutive_ratio": 0.998,
+      "string_stable": true,
+      "min_gap_m": 3.04,
+      "min_ttc_s": 3.47,
+      "max_decel": 1.88,
+      "rms_jerk_mean": 0.404,
+      "collided_vehicles": [],
+      "initial_gap_m": 12.0,
+      "lane_capacity_veh_per_h": 3272,
+      "aeb_activations": 0
+    }
+  },
+  "v2v": {
+    "latency_ms": [
+      20.0,
+      50.0,
+      100.0,
+      200.0,
+      300.0
+    ],
+    "amp_vs_latency": [
+      0.727,
+      0.78,
+      0.875,
+      1.106,
+      1.521
+    ],
+    "loss_pct": [
+      0.0,
+      20.0,
+      40.0,
+      60.0,
+      80.0,
+      95.0
+    ],
+    "amp_vs_loss": [
+      0.778,
+      0.794,
+      0.859,
+      0.903,
+      0.751,
+      0.666
+    ],
+    "min_gap_vs_loss": [
+      11.92,
+      11.96,
+      11.17,
+      10.95,
+      9.48,
+      12.9
+    ],
+    "blackout_collisions": 0,
+    "blackout_min_gap": 17.72
+  },
+  "heterogeneous": {
+    "tau": [
+      0.376,
+      0.479,
+      0.504,
+      0.251,
+      0.571,
+      0.529,
+      0.422,
+      0.531,
+      0.342
+    ],
+    "length": [
+      4.0,
+      12.0,
+      5.0,
+      12.0,
+      5.0,
+      4.5,
+      4.5,
+      4.0,
+      4.0
+    ],
+    "summary": {
+      "ACC  h=0.6 s": {
+        "peak_acc_leader": 3.06,
+        "peak_acc_last": 4.99,
+        "amplification_last_over_leader": 1.63,
+        "max_consecutive_ratio": 1.154,
+        "string_stable": false,
+        "min_gap_m": 2.28,
+        "min_ttc_s": 1.35,
+        "max_decel": 4.99,
+        "rms_jerk_mean": 0.529,
+        "collided_vehicles": [],
+        "initial_gap_m": 18.0,
+        "lane_capacity_veh_per_h": 3999,
+        "aeb_activations": 2
+      },
+      "ACC  h=1.6 s": {
+        "peak_acc_leader": 3.06,
+        "peak_acc_last": 1.22,
+        "amplification_last_over_leader": 0.4,
+        "max_consecutive_ratio": 0.922,
+        "string_stable": true,
+        "min_gap_m": 28.36,
+        "min_ttc_s": 10.27,
+        "max_decel": 2.59,
+        "rms_jerk_mean": 0.221,
+        "collided_vehicles": [],
+        "initial_gap_m": 43.0,
+        "lane_capacity_veh_per_h": 1894,
+        "aeb_activations": 0
+      },
+      "CACC h=0.6 s": {
+        "peak_acc_leader": 3.06,
+        "peak_acc_last": 2.37,
+        "amplification_last_over_leader": 0.78,
+        "max_consecutive_ratio": 1.092,
+        "string_stable": false,
+        "min_gap_m": 11.6,
+        "min_ttc_s": 8.15,
+        "max_decel": 2.85,
+        "rms_jerk_mean": 0.354,
+        "collided_vehicles": [],
+        "initial_gap_m": 18.0,
+        "lane_capacity_veh_per_h": 3999,
+        "aeb_activations": 0
+      }
+    }
+  }
+}
