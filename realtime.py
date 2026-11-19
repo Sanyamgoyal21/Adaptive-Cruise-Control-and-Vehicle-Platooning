@@ -34,6 +34,7 @@ sys.path.insert(0, ROOT)
 
 DT = 0.01            # simulation step [s]
 HIST = 30.0          # seconds of history in the live plots
+MAX_FOLLOWERS = 12
 LEAD_WIN = 45.0      # leader window for the live amplification check [s]
 SAMPLE = 0.1         # history sampling period [s]
 V0 = 25.0            # initial speed [m/s]
@@ -80,7 +81,7 @@ def car_shape(x_front, y, L, W):
 
 def parse_args(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--followers", type=int, default=8)
+    ap.add_argument("--followers", type=int, default=8, choices=range(1, 13), metavar="1-12")
     ap.add_argument("--controller", choices=["CACC", "ACC", "IDM"], default="CACC")
     ap.add_argument("--headway", type=float, default=0.6)
     ap.add_argument("--speed", type=float, default=1.0, choices=SPEEDS, help="real-time factor")
@@ -374,17 +375,8 @@ class LiveApp:
         for a in (self.ax_v, self.ax_g):
             a.tick_params(labelbottom=False)
         self.lines = {"v": [], "g": [], "a": []}
-        for i in range(self.n + 1):
-            c = st.LEADER if i == 0 else st.RAMP[int(round((i - 1) * (len(st.RAMP) - 1) / max(self.n - 1, 1)))]
-            ls, lw = ("--", 1.8) if i == 0 else ("-", 1.3)
-            lab = "Leader" if i == 0 else f"F{i}"
-            self.lines["v"].append(anim(self.ax_v.plot([], [], color=c, ls=ls, lw=lw, label=lab)[0]))
-            self.lines["a"].append(anim(self.ax_a.plot([], [], color=c, ls=ls, lw=lw)[0]))
-            if i:
-                self.lines["g"].append(anim(self.ax_g.plot([], [], color=c, lw=lw)[0]))
+        self.make_lines()
         self.ax_g.axhline(0, color=st.CRITICAL, lw=1)
-        self.ax_v.legend(loc="lower left", ncol=self.n + 1, fontsize=7.5, handlelength=1.4,
-                         columnspacing=0.8)
 
         # --- status panel (inside an invisible axes so it can be blitted)
         px = 0.755
@@ -406,19 +398,21 @@ class LiveApp:
             s.on_changed(lambda v: None if self._quiet else cb(v))
             ui[key] = s
 
-        slider("speed", 0.605, "Leader target speed [m/s]", 0, 35, V0, 1, "%d", self.set_target_speed)
-        slider("h", 0.545, "Time gap h (IDM: T) [s]", 0.3, 2.0, self.h, 0.05, "%.2f", self.set_headway)
-        slider("loss", 0.485, "V2V packet loss [%]", 0, 100, 0, 5, "%d", lambda v: self.set_loss(v / 100))
-        slider("lat", 0.425, "V2V latency [ms]", 0, 500, self.latency * 1000, 10, "%d",
+        slider("speed", 0.610, "Leader target speed [m/s]", 0, 35, V0, 1, "%d", self.set_target_speed)
+        slider("n", 0.555, "Number of followers (rebuilds platoon)", 1, MAX_FOLLOWERS, self.n, 1, "%d",
+               self.set_followers)
+        slider("h", 0.500, "Time gap h (IDM: T) [s]", 0.3, 2.0, self.h, 0.05, "%.2f", self.set_headway)
+        slider("loss", 0.445, "V2V packet loss [%]", 0, 100, 0, 5, "%d", lambda v: self.set_loss(v / 100))
+        slider("lat", 0.390, "V2V latency [ms]", 0, 500, self.latency * 1000, 10, "%d",
                lambda v: self.set_latency(v / 1000))
 
-        a = fig.add_axes([px, 0.275, 0.11, 0.10])
+        a = fig.add_axes([px, 0.245, 0.11, 0.10])
         a.set_title("Follower controller", fontsize=8.5, loc="left", color=st.TEXT2, pad=3)
         ui["kind"] = RadioButtons(a, KINDS, active=KINDS.index(self.kind), activecolor=st.CAT[0])
         for lbl in ui["kind"].labels:
             lbl.set_fontsize(8.5)
         ui["kind"].on_clicked(self.set_kind)
-        b = fig.add_axes([px + 0.115, 0.31, 0.10, 0.05])
+        b = fig.add_axes([px + 0.115, 0.28, 0.10, 0.05])
         ui["v2v"] = CheckButtons(b, ["V2V radio"], [True])
         ui["v2v"].labels[0].set_fontsize(8.5)
         ui["v2v"].on_clicked(lambda _l: self.set_v2v(ui["v2v"].get_status()[0]))
@@ -435,18 +429,54 @@ class LiveApp:
             ui[key] = btn
 
         bw = 0.105
-        button("ebrake", [px, 0.205, bw, 0.045], "Emergency brake", self.emergency_brake, "#f6d5d5")
-        button("cutin", [px + bw + 0.01, 0.205, bw, 0.045], "Cut-in car", self.cut_in)
-        button("pause", [px, 0.150, bw, 0.045], "Pause", self.toggle_pause)
-        button("simspeed", [px + bw + 0.01, 0.150, bw, 0.045], f"Sim speed x{self.speed_factor:g}",
+        button("ebrake", [px, 0.180, bw, 0.045], "Emergency brake", self.emergency_brake, "#f6d5d5")
+        button("cutin", [px + bw + 0.01, 0.180, bw, 0.045], "Cut-in car", self.cut_in)
+        button("pause", [px, 0.127, bw, 0.045], "Pause", self.toggle_pause)
+        button("simspeed", [px + bw + 0.01, 0.127, bw, 0.045], f"Sim speed x{self.speed_factor:g}",
                self.cycle_speed)
-        button("reset", [px, 0.095, bw, 0.045], "Reset", self.reset)
+        button("reset", [px, 0.074, bw, 0.045], "Reset", self.reset)
         fig.text(px, 0.045, "Keys:  up/down leader speed    space emergency brake\n"
                             "       c cut-in    p pause    r reset",
                  fontsize=8, color=st.TEXT2, family="monospace", va="top")
         if self.interactive:
             fig.canvas.mpl_connect("key_press_event", self.on_key)
             fig.canvas.mpl_connect("draw_event", self.on_draw)
+
+    def make_lines(self):
+        """(Re)create one line per vehicle in the three live plots + legend."""
+        from matplotlib.colors import LinearSegmentedColormap
+        st = self.style
+        for ln in [x for k in self.lines for x in self.lines[k]]:
+            self.animated.remove(ln)
+            ln.remove()
+        self.lines = {"v": [], "g": [], "a": []}
+        ramp = LinearSegmentedColormap.from_list("ramp", st.RAMP)
+        for i in range(self.n + 1):
+            c = st.LEADER if i == 0 else ramp((i - 1) / max(self.n - 1, 1))
+            ls, lw = ("--", 1.8) if i == 0 else ("-", 1.3)
+            lab = "Leader" if i == 0 else f"F{i}"
+            new = {"v": self.ax_v.plot([], [], color=c, ls=ls, lw=lw, label=lab)[0],
+                   "a": self.ax_a.plot([], [], color=c, ls=ls, lw=lw)[0]}
+            if i:
+                new["g"] = self.ax_g.plot([], [], color=c, lw=lw)[0]
+            for k, ln in new.items():
+                ln.set_animated(self.interactive)
+                self.animated.append(ln)
+                self.lines[k].append(ln)
+        self.ax_v.legend(loc="lower left", ncol=self.n + 1, fontsize=7.5 if self.n <= 8 else 6.5,
+                         handlelength=1.2, columnspacing=0.7)
+
+    def set_followers(self, n):
+        """Rebuild the platoon with ``n`` followers (restarts the drive)."""
+        n = int(n)
+        if n == self.n:
+            return
+        self.n = n
+        self.build_world()
+        self.make_lines()
+        self._sync_slider("speed", V0)
+        self.notify(f"Platoon rebuilt with {n} followers")
+        self.full_redraw()
 
     def on_key(self, ev):
         k = ev.key
