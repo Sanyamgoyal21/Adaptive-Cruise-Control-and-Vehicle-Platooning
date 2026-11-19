@@ -53,7 +53,7 @@ Constant time headway: `d_ref = r + h·v`, with standstill gap `r = 3 m`. Spacin
 | CACC fallback | If no fresh V2V message arrives within 0.5 s, switch to ACC and **ramp** the headway 0.6 → 1.6 s (graceful degradation) |
 | CACC safety supervisor | When V2V reports the predecessor braking harder than −4 m/s², brake at least hard enough to stop `r` metres behind it (kinematic check). This catches a car that is still closing a large gap at higher speed when the platoon emergency-brakes, a case the linear CACC law misses (found using the real-time simulator) |
 | AEB | Full braking if time-to-collision < 1.5 s |
-| Human baseline | Intelligent Driver Model (Treiber et al. 2000) with 0.6 s reaction delay |
+| Human baseline | Intelligent Driver Model (Treiber et al. 2000) with 0.60 s reaction delay |
 
 Gains: ACC `k_p = 0.25, k_d = 0.8`; CACC `k_p = 0.2, k_d = 0.7`.
 
