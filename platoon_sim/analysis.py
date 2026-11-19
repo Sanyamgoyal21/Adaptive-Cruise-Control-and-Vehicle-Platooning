@@ -31,6 +31,12 @@ def gamma_acc(w, kp, kd, h, tau):
 
 
 def gamma_cacc(w, kp, kd, h, tau, theta):
+    """Cooperative Adaptive Cruise Control (CACC) acceleration transfer function.
+
+    Computes Gamma(jw) = A_i(jw) / A_{i-1}(jw) for a string of identical vehicles
+    under predecessor feedforward acceleration with total communication delay theta
+    (transmission latency + sampling hold) and Constant Time Headway (CTH) spacing.
+    """
     s = 1j * np.asarray(w)
     G = 1.0 / (s ** 2 * (tau * s + 1.0))
     K = kp + kd * s
@@ -40,6 +46,11 @@ def gamma_cacc(w, kp, kd, h, tau, theta):
 
 
 def peak_gain(gamma_vals):
+    """Compute the H-infinity norm: sup_w |Gamma(jw)|.
+
+    A value <= 1.0 (0.0 dB) confirms string stability (perturbations attenuate
+    as they propagate down the platoon).
+    """
     return float(np.max(np.abs(gamma_vals)))
 
 

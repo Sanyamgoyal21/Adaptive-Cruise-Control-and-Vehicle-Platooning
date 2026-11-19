@@ -30,6 +30,14 @@ def true_predecessor(ego, vehicles, t):
 
 
 class Radar:
+    """Forward-looking radar sensor model (e.g. 77 GHz automotive radar).
+
+    Measures bumper-to-bumper distance and relative velocity to the nearest active
+    vehicle ahead within ``max_range``, corrupted by additive zero-mean Gaussian noise:
+    - Distance error: N(0, sigma_range^2), default sigma = 0.05 m
+    - Range-rate error: N(0, sigma_rate^2), default sigma = 0.02 m/s
+    """
+
     def __init__(self, max_range: float = 150.0, sigma_range: float = 0.05,
                  sigma_rate: float = 0.02, rng: np.random.Generator | None = None):
         self.max_range = max_range
