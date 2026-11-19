@@ -128,6 +128,10 @@ class TestRealtimeApp(unittest.TestCase):
         self.assertLess(app.sim.vehicles[0].v, 0.1)
         self.assertEqual(app.sim.collisions, [])
         app.update_artists()                                   # drawing code runs
+        app.set_followers(11); run(3)
+        self.assertEqual(len(app.sim.vehicles), 12)
+        self.assertEqual(len(app.lines["g"]), 11)
+        app.update_artists()
         app.reset()
         self.assertLess(app.sim.t, 1e-9)
 

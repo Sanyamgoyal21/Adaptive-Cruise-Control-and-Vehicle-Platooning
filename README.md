@@ -138,11 +138,12 @@ The window has three parts:
 |---|---|
 | Leader target speed slider, ↑ / ↓ keys | Accelerate or brake the leader |
 | Emergency brake button, space key | Leader brakes at −6 m/s² to standstill |
+| Number of followers slider (1–12) | Rebuild the platoon with more or fewer cars |
 | Time gap h slider | Change the followers' headway live (CACC ramps to it smoothly) |
 | V2V packet loss and latency sliders, V2V radio checkbox | Degrade or cut communication and watch the fallback happen |
 | Follower controller (CACC / ACC / Human) | Switch every follower's controller on the fly |
 | Cut-in car button, c key | A **non-connected** car changes lane into the middle of the platoon, then leaves after 15 s |
-| Pause (p), Sim speed, Reset (r) | Pause, change the speed factor, or start over |
+| Pause (p), Sim speed button, Reset (r) | Pause, run at ×0.5, ×1, ×2 or ×4 real time, or start over |
 
 Things to try: set h = 0.6 s, switch to **ACC**, and make the leader brake from 25 to 10 m/s. The
 disturbance grows down the string, and with harsh enough braking the cars collide. Switch back to **CACC** and repeat:
